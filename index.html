@@ -1,11 +1,10 @@
-
-
-
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Happy Birthday Buchiii ❤️</title>
 
 <style>
@@ -33,12 +32,12 @@ body {
     padding: 25px;
     margin: 20px 0;
     border-radius: 22px;
-    background: rgba(255,255,255,0.12);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .heart {
-    font-size: 60px;
+    font-size: 55px;
 }
 
 input {
@@ -67,13 +66,14 @@ button, .btn {
 }
 
 button:hover, .btn:hover {
-    transform: scale(1.03);
+    opacity: 0.88;
 }
 
 img, video {
     display: block;
     width: 100%;
     max-width: 700px;
+    height: auto;
     margin: 15px auto;
     border-radius: 18px;
 }
@@ -88,7 +88,7 @@ audio {
     display: none;
 }
 
-#error, #pdfMessage, .media-status {
+#error, #pdfMessage, .mediaMessage {
     color: #ffd0e2;
     overflow-wrap: anywhere;
 }
@@ -99,7 +99,7 @@ hr {
     margin: 28px 0;
 }
 
-@media(max-width:600px) {
+@media (max-width: 600px) {
     .card {
         padding: 18px;
     }
@@ -160,63 +160,78 @@ hr {
         <div class="card">
             <div class="heart">🎂💖🎂</div>
             <h1>Happy Birthday Buchiii! ❤️</h1>
+
             <p>
                 Wishing you lots of happiness, love,
                 laughter and beautiful memories!
             </p>
+            <p>You are special. Keep smiling always! 💕</p>
         </div>
 
 
-        <!-- PHOTO -->
+        <!-- PHOTO: Photo1.jpg -->
         <div class="card">
             <h2>📸 A Special Memory</h2>
 
             <img
-                src="./Photos/photo1.jpg"
+                src="Photo1.jpg"
                 alt="Birthday Photo"
-                onerror="this.style.display='none'; document.getElementById('photoStatus').textContent='Photo not found. Check Photos folder and filename.'"
+                onerror="this.style.display='none'; document.getElementById('photoError').textContent='Photo not found. Check that the filename is Photo1.jpg.';"
             >
 
-            <p id="photoStatus" class="media-status"></p>
+            <p id="photoError" class="mediaMessage"></p>
         </div>
 
 
-        <!-- AUDIO -->
+        <!-- AUDIO: audio1.m4a -->
         <div class="card">
             <h2>🎵 A Special Message For You</h2>
 
-            <audio id="birthdayAudio" controls preload="metadata">
-                <source src="./Audio/audio1.m4a" type="audio/mp4">
+            <audio controls preload="metadata">
+                <source src="audio1.m4a" type="audio/mp4">
                 Your browser does not support audio.
             </audio>
 
-            <p id="audioStatus" class="media-status"></p>
+            <p class="mediaMessage">
+                If audio does not play, check the filename and audio format.
+            </p>
         </div>
 
 
-        <!-- VIDEO -->
+        <!-- VIDEO: video1.mp4 -->
         <div class="card">
             <h2>🎬 Your Birthday Video</h2>
 
-            <video id="birthdayVideo" controls playsinline preload="metadata">
-                <source src="./Vidios/video1.mp4" type="video/mp4">
+            <video controls playsinline preload="metadata">
+                <source src="video1.mp4" type="video/mp4">
                 Your browser does not support video.
             </video>
 
-            <p id="videoStatus" class="media-status"></p>
+            <p class="mediaMessage">
+                If video does not play, check that the filename is video1.mp4.
+            </p>
         </div>
 
 
-        <!-- PDF -->
+        <!-- PDF: open it buchiiii.pdf -->
         <div class="card">
             <h2>💌 Your Birthday Letter</h2>
-            <p>Open your special birthday PDF below.</p>
+            <p>Here is your special birthday PDF.</p>
 
-            <a id="openPdf" class="btn" target="_blank" rel="noopener">
+            <a
+                class="btn"
+                href="open%20it%20buchiiii.pdf"
+                target="_blank"
+                rel="noopener"
+            >
                 📕 Open Birthday PDF
             </a>
 
-            <a id="downloadPdf" class="btn" download>
+            <a
+                class="btn"
+                href="open%20it%20buchiiii.pdf"
+                download="Birthday-Letter.pdf"
+            >
                 ⬇️ Download PDF
             </a>
         </div>
@@ -238,91 +253,72 @@ hr {
 /* SECRET CODE */
 const SECRET_CODE = "happy birthday buchiii";
 
-/* PDF FILE PATH */
-const PDF_PATH =
-    "./Happy%20wala%20Birthday%20in%20funny%20manner.pdf/open%20it%20buchiiii.pdf";
-
-
-/* CHECK CODE */
+/* CHECK THE CODE */
 function isCorrectCode(value) {
     return value.trim().toLowerCase() === SECRET_CODE;
 }
 
 
-/* UNLOCK SURPRISE */
-document.getElementById("unlockForm").addEventListener("submit", function(event) {
-    event.preventDefault();
+/* UNLOCK THE SURPRISE */
+document.getElementById("unlockForm").addEventListener(
+    "submit",
+    function(event) {
+        event.preventDefault();
 
-    const input = document.getElementById("secretCode");
-    const error = document.getElementById("error");
+        const input = document.getElementById("secretCode");
+        const error = document.getElementById("error");
 
-    if (isCorrectCode(input.value)) {
-        error.textContent = "";
-        document.getElementById("lock").style.display = "none";
-        document.getElementById("surprise").style.display = "block";
+        if (isCorrectCode(input.value)) {
+            error.textContent = "";
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    } else {
-        error.textContent = "❌ Incorrect code! Please try again ❤️";
-        input.value = "";
-        input.focus();
-    }
-});
+            document.getElementById("lock").style.display = "none";
+            document.getElementById("surprise").style.display = "block";
 
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        } else {
+            error.textContent =
+                "❌ Incorrect code! Please enter Happy Birthday Buchiii.";
 
-/* OPEN PDF WITH CODE */
-document.getElementById("pdfForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    const input = document.getElementById("pdfCode");
-    const message = document.getElementById("pdfMessage");
-
-    if (isCorrectCode(input.value)) {
-        message.textContent = "✅ Correct code! Opening PDF...";
-
-        const pdfWindow = window.open(PDF_PATH, "_blank");
-
-        if (!pdfWindow) {
-            message.textContent = "Popup blocked. Please allow popups and try again.";
+            input.value = "";
+            input.focus();
         }
-    } else {
-        message.textContent = "❌ Incorrect code! Try again ❤️";
-        input.value = "";
-        input.focus();
     }
-});
+);
 
 
-/* PDF BUTTONS */
-document.getElementById("openPdf").href = PDF_PATH;
-document.getElementById("downloadPdf").href = PDF_PATH;
+/* OPEN PDF AFTER CODE ENTRY */
+document.getElementById("pdfForm").addEventListener(
+    "submit",
+    function(event) {
+        event.preventDefault();
 
+        const input = document.getElementById("pdfCode");
+        const message = document.getElementById("pdfMessage");
 
-/* MEDIA ERROR MESSAGES */
-document.getElementById("birthdayAudio").addEventListener("error", function() {
-    document.getElementById("audioStatus").textContent 
-        "Audio not found. Check Audio/audio1.m4a.";
-});
+        if (isCorrectCode(input.value)) {
+            message.textContent = "✅ Code accepted! Opening PDF...";
 
-document.getElementById("birthdayVideo").addEventListener("error", function() {
-    document.getElementById("videoStatus").textContent =
-        "Video not found. Check Vidios/video1.mp4.";
-});
+            const pdfWindow = window.open(
+                "open%20it%20buchiiii.pdf",
+                "_blank"
+            );
 
-document.getElementById("birthdayVideo").addEventListener("loadedmetadata", function() {
-    document.getElementById("videoStatus").textContent = "✅ Video loaded successfully!";
-});
-
-document.getElementById("birthdayAudio").addEventListener("loadedmetadata", function() {
-    document.getElementById("audioStatus").textContent = "✅ Audio loaded successfully!";
-});
+            if (!pdfWindow) {
+                message.textContent =
+                    "Popup blocked. Allow popups and try again.";
+            }
+        } else {
+            message.textContent = "❌ Incorrect code. Please try again.";
+            input.value = "";
+            input.focus();
+        }
+    }
+);
 </script>
 
 </body>
 </html>
-
-
-
+```
