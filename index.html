@@ -1,0 +1,328 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Buchiii ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+    background: linear-gradient(135deg, #16001f, #542052, #7a164f);
+}
+
+.container {
+    width: 94%;
+    max-width: 850px;
+    margin: auto;
+    padding: 15px 0;
+}
+
+.card {
+    padding: 25px;
+    margin: 20px 0;
+    border-radius: 22px;
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.heart {
+    font-size: 60px;
+}
+
+input {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    margin: 18px auto;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+}
+
+button, .btn {
+    display: inline-block;
+    padding: 14px 25px;
+    margin: 6px;
+    border: none;
+    border-radius: 30px;
+    background: #ff4f9a;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    transform: scale(1.03);
+}
+
+img, video {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    margin: 15px auto;
+    border-radius: 18px;
+}
+
+audio {
+    display: block;
+    width: 100%;
+    margin: 15px auto;
+}
+
+#surprise {
+    display: none;
+}
+
+#error, #pdfMessage, .media-status {
+    color: #ffd0e2;
+    overflow-wrap: anywhere;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid rgba(255,255,255,0.25);
+    margin: 28px 0;
+}
+
+@media(max-width:600px) {
+    .card {
+        padding: 18px;
+    }
+
+    h1 {
+        font-size: 27px;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+    <!-- SECRET CODE SCREEN -->
+    <div id="lock" class="card">
+        <div class="heart">💗</div>
+
+        <h1>Unlock Your Surprise ❤️</h1>
+        <p>Enter the secret birthday code below.</p>
+
+        <form id="unlockForm">
+            <input
+                type="password"
+                id="secretCode"
+                placeholder="Enter secret code"
+                autocomplete="off"
+                required
+            >
+            <button type="submit">🎁 Unlock Surprise</button>
+        </form>
+
+        <p id="error" role="status"></p>
+
+        <hr>
+
+        <h2>🔐 Open Your Special PDF</h2>
+        <p>Enter the secret code to open your birthday PDF.</p>
+
+        <form id="pdfForm">
+            <input
+                type="password"
+                id="pdfCode"
+                placeholder="Enter secret code"
+                autocomplete="off"
+                required
+            >
+            <button type="submit">📕 Open PDF</button>
+        </form>
+
+        <p id="pdfMessage" role="status"></p>
+    </div>
+
+
+    <!-- BIRTHDAY SURPRISE -->
+    <div id="surprise">
+
+        <div class="card">
+            <div class="heart">🎂💖🎂</div>
+            <h1>Happy Birthday Buchiii! ❤️</h1>
+            <p>
+                Wishing you lots of happiness, love,
+                laughter and beautiful memories!
+            </p>
+        </div>
+
+
+        <!-- PHOTO -->
+        <div class="card">
+            <h2>📸 A Special Memory</h2>
+
+            <img
+                src="./Photos/photo1.jpg"
+                alt="Birthday Photo"
+                onerror="this.style.display='none'; document.getElementById('photoStatus').textContent='Photo not found. Check Photos folder and filename.'"
+            >
+
+            <p id="photoStatus" class="media-status"></p>
+        </div>
+
+
+        <!-- AUDIO -->
+        <div class="card">
+            <h2>🎵 A Special Message For You</h2>
+
+            <audio id="birthdayAudio" controls preload="metadata">
+                <source src="./Audio/audio1.m4a" type="audio/mp4">
+                Your browser does not support audio.
+            </audio>
+
+            <p id="audioStatus" class="media-status"></p>
+        </div>
+
+
+        <!-- VIDEO -->
+        <div class="card">
+            <h2>🎬 Your Birthday Video</h2>
+
+            <video id="birthdayVideo" controls playsinline preload="metadata">
+                <source src="./Vidios/video1.mp4" type="video/mp4">
+                Your browser does not support video.
+            </video>
+
+            <p id="videoStatus" class="media-status"></p>
+        </div>
+
+
+        <!-- PDF -->
+        <div class="card">
+            <h2>💌 Your Birthday Letter</h2>
+            <p>Open your special birthday PDF below.</p>
+
+            <a id="openPdf" class="btn" target="_blank" rel="noopener">
+                📕 Open Birthday PDF
+            </a>
+
+            <a id="downloadPdf" class="btn" download>
+                ⬇️ Download PDF
+            </a>
+        </div>
+
+
+        <div class="card">
+            <div class="heart">❤️</div>
+            <h2>Once Again, Happy Birthday!</h2>
+            <p>Keep smiling and stay happy always, Buchiii! 💕</p>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+"use strict";
+
+/* SECRET CODE */
+const SECRET_CODE = "happy birthday buchiii";
+
+/* PDF FILE PATH */
+const PDF_PATH =
+    "./Happy%20wala%20Birthday%20in%20funny%20manner.pdf/open%20it%20buchiiii.pdf";
+
+
+/* CHECK CODE */
+function isCorrectCode(value) {
+    return value.trim().toLowerCase() === SECRET_CODE;
+}
+
+
+/* UNLOCK SURPRISE */
+document.getElementById("unlockForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const input = document.getElementById("secretCode");
+    const error = document.getElementById("error");
+
+    if (isCorrectCode(input.value)) {
+        error.textContent = "";
+        document.getElementById("lock").style.display = "none";
+        document.getElementById("surprise").style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    } else {
+        error.textContent = "❌ Incorrect code! Please try again ❤️";
+        input.value = "";
+        input.focus();
+    }
+});
+
+
+/* OPEN PDF WITH CODE */
+document.getElementById("pdfForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const input = document.getElementById("pdfCode");
+    const message = document.getElementById("pdfMessage");
+
+    if (isCorrectCode(input.value)) {
+        message.textContent = "✅ Correct code! Opening PDF...";
+
+        const pdfWindow = window.open(PDF_PATH, "_blank");
+
+        if (!pdfWindow) {
+            message.textContent = "Popup blocked. Please allow popups and try again.";
+        }
+    } else {
+        message.textContent = "❌ Incorrect code! Try again ❤️";
+        input.value = "";
+        input.focus();
+    }
+});
+
+
+/* PDF BUTTONS */
+document.getElementById("openPdf").href = PDF_PATH;
+document.getElementById("downloadPdf").href = PDF_PATH;
+
+
+/* MEDIA ERROR MESSAGES */
+document.getElementById("birthdayAudio").addEventListener("error", function() {
+    document.getElementById("audioStatus").textContent 
+        "Audio not found. Check Audio/audio1.m4a.";
+});
+
+document.getElementById("birthdayVideo").addEventListener("error", function() {
+    document.getElementById("videoStatus").textContent =
+        "Video not found. Check Vidios/video1.mp4.";
+});
+
+document.getElementById("birthdayVideo").addEventListener("loadedmetadata", function() {
+    document.getElementById("videoStatus").textContent = "✅ Video loaded successfully!";
+});
+
+document.getElementById("birthdayAudio").addEventListener("loadedmetadata", function() {
+    document.getElementById("audioStatus").textContent = "✅ Audio loaded successfully!";
+});
+</script>
+
+</body>
+</html>
+
+
+
